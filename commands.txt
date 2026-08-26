@@ -1,0 +1,18 @@
+findstr /S /N /I "package com.divakar" src\*.java
+mvn clean package
+git init
+git branch -M main
+git status
+git add .
+git status
+git commit -m "chore: initialize Spring Boot project"
+git log --oneline -1
+git status
+git remote add origin https://github.com/mdkdivakar26/task-management-api.git
+git remote -v
+git branch
+git push -u origin main
+commits
+git status
+git log --oneline -1
+doskey /history >commands.txt
