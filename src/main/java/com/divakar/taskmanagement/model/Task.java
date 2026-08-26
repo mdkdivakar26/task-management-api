@@ -26,15 +26,19 @@ public class Task {
 
     @Enumerated(EnumType.STRING)
 	private TaskStatus status;
+	
+	@Enumerated(EnumType.STRING)
+	private TaskPriority priority;
 
     public Task() {
     }
 
-    public Task(Long id, String title, String description, TaskStatus status) {
+    public Task(Long id, String title, String description, TaskStatus status,TaskPriority priority) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.status = status;
+		this.priority = priority;
     }
 
     public Long getId() {
@@ -68,4 +72,13 @@ public class Task {
     public void setStatus(TaskStatus status) {
         this.status = status;
     }
+	
+	public TaskPriority getPriority(){
+		return priority;
+	}
+	
+	public void setPriority(TaskPriority priority){
+		this.priority = priority;
+	}
+	
 }

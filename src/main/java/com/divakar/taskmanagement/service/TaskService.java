@@ -37,6 +37,7 @@ public class TaskService {
 		existingTask.setTitle(updatedTask.getTitle());
 		existingTask.setDescription(updatedTask.getDescription());
 		existingTask.setStatus(updatedTask.getStatus());
+		existingTask.setPriority(updatedTask.getPriority());
 
 		return taskRepository.save(existingTask);
 	}
