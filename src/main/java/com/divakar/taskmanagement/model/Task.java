@@ -1,6 +1,8 @@
 package com.divakar.taskmanagement.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,16 +24,17 @@ public class Task {
 	@Size(max = 500, message = "Description must not exceed 500 characters")
 	private String description;
 
-    private boolean completed;
+    @Enumerated(EnumType.STRING)
+	private TaskStatus status;
 
     public Task() {
     }
 
-    public Task(Long id, String title, String description, boolean completed) {
+    public Task(Long id, String title, String description, TaskStatus status) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.completed = completed;
+        this.status = status;
     }
 
     public Long getId() {
@@ -58,11 +61,11 @@ public class Task {
         this.description = description;
     }
 
-    public boolean isCompleted() {
-        return completed;
+    public TaskStatus getStatus() {
+        return status;
     }
 
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
+    public void setStatus(TaskStatus status) {
+        this.status = status;
     }
 }
