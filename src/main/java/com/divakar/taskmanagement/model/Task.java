@@ -10,6 +10,13 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import java.time.LocalDateTime;
+
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+
 @Entity
 public class Task {
 
@@ -29,16 +36,25 @@ public class Task {
 	
 	@Enumerated(EnumType.STRING)
 	private TaskPriority priority;
+	
+	@ManyToOne
+	@JoinColumn(name="category_id")
+	private Category category;
+	private LocalDateTime dueDate;
+	private LocalDateTime createdAt;
+	private LocalDateTime updatedAt;
 
     public Task() {
     }
 
-    public Task(Long id, String title, String description, TaskStatus status,TaskPriority priority) {
+    public Task(Long id, String title, String description, TaskStatus status,TaskPriority priority, Category category, LocalDateTime dueDate) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.status = status;
 		this.priority = priority;
+		this.category = category;
+		this.dueDate=dueDate;
     }
 
     public Long getId() {
@@ -79,6 +95,48 @@ public class Task {
 	
 	public void setPriority(TaskPriority priority){
 		this.priority = priority;
+	}
+	
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+	public LocalDateTime getDueDate() {
+		return dueDate;
+	}
+
+	public void setDueDate(LocalDateTime dueDate) {
+		this.dueDate = dueDate;
+	}
+	
+	@PrePersist
+	protected void onCreate() {
+		createdAt = LocalDateTime.now();
+		updatedAt = LocalDateTime.now();
+	}
+
+	@PreUpdate
+	protected void onUpdate() {
+		updatedAt = LocalDateTime.now();
+	}
+	
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 	
 }
